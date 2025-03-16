@@ -1,24 +1,24 @@
 # Import the QueryBase class
-#### YOUR CODE HERE
+from query_base import QueryBase
 
 # Import dependencies needed for sql execution
 # from the `sql_execution` module
-#### YOUR CODE HERE
+from sql_execution import execute_query
 
 # Define a subclass of QueryBase
 # called Employee
-#### YOUR CODE HERE
+class Employee(QueryBase):
 
     # Set the class attribute `name`
     # to the string "employee"
-    #### YOUR CODE HERE
+    name = "employee"
 
 
     # Define a method called `names`
     # that receives no arguments
     # This method should return a list of tuples
     # from an sql execution
-    #### YOUR CODE HERE
+    def names(self):
         
         # Query 3
         # Write an SQL query
@@ -27,14 +27,18 @@
         # 2. The employee's id
         # This query should return the data
         # for all employees in the database
-        #### YOUR CODE HERE
+        query = """
+            SELECT first_name || ' ' || last_name AS full_name, employee_id
+            FROM employee
+        """
+        return execute_query(query)
     
 
     # Define a method called `username`
     # that receives an `id` argument
     # This method should return a list of tuples
     # from an sql execution
-    #### YOUR CODE HERE
+    def username(self, id):
         
         # Query 4
         # Write an SQL query
@@ -42,7 +46,12 @@
         # Use f-string formatting and a WHERE filter
         # to only return the full name of the employee
         # with an id equal to the id argument
-        #### YOUR CODE HERE
+        query = f"""
+            SELECT first_name || ' ' || last_name AS full_name
+            FROM employee
+            WHERE employee_id = {id}
+        """
+        return execute_query(query)
 
 
     # Below is method with an SQL query
