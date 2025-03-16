@@ -29,7 +29,7 @@ class Employee(QueryBase):
         # for all employees in the database
         query = """
             SELECT first_name || ' ' || last_name AS full_name, employee_id
-            FROM employee
+            FROM employee_events
         """
         return execute_query(query)
     
@@ -48,7 +48,7 @@ class Employee(QueryBase):
         # with an id equal to the id argument
         query = f"""
             SELECT first_name || ' ' || last_name AS full_name
-            FROM employee
+            FROM employee_events
             WHERE employee_id = {id}
         """
         return execute_query(query)
@@ -61,14 +61,13 @@ class Employee(QueryBase):
     # so when it is called, a pandas dataframe
     # is returns containing the execution of
     # the sql query
-    #### YOUR CODE HERE
     def model_data(self, id):
-
-        return f"""
-                    SELECT SUM(positive_events) positive_events
-                         , SUM(negative_events) negative_events
-                    FROM {self.name}
-                    JOIN employee_events
-                        USING({self.name}_id)
-                    WHERE {self.name}.{self.name}_id = {id}
-                """
+        query = f"""
+            SELECT SUM(positive_events) positive_events
+                 , SUM(negative_events) negative_events
+            FROM {self.name}
+            JOIN employee_events
+                USING({self.name}_id)
+            WHERE {self.name}.{self.name}_id = {id}
+        """
+        return pd.read_sql_query(query, sqlite3.connect('employee_events.db'))
