@@ -2,9 +2,13 @@
 from query_base import QueryBase
 
 # Import dependencies for sql execution
-from sql_execution import execute_query
+from sql_execution import QueryMixin
 import pandas as pd
 import sqlite3
+
+# Create a base class called QueryBase that inherits from QueryMixin
+class QueryBase(QueryMixin):
+    pass
 
 # Create a subclass of QueryBase
 # called  `Team`
@@ -30,7 +34,7 @@ class Team(QueryBase):
             SELECT team_name, team_id
             FROM team
         """
-        return execute_query(query)
+        return self.query(query)
     
 
     # Define a `username` method
@@ -50,7 +54,7 @@ class Team(QueryBase):
             FROM team
             WHERE team_id = {id}
         """
-        return execute_query(query)
+        return self.query(query)
 
 
     # Below is method with an SQL query
