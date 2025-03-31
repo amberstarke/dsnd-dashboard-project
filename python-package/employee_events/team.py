@@ -77,4 +77,4 @@ class Team(QueryBase):
                     GROUP BY employee_id
                    )
         """
-        return pd.read_sql_query(query, sqlite3.connect('employee_events.db'))
+        return self.pandas_query(query)
