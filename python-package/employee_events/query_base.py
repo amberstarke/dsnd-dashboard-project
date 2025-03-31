@@ -1,11 +1,12 @@
 # Import any dependencies needed to execute sql queries
 import sqlite3
 import pandas as pd
+from sql_execution import QueryMixin
 
 # Define a class called QueryBase
 # Use inheritance to add methods
 # for querying the employee_events database.
-class QueryBase:
+class QueryBase(QueryMixin):
 
     # Create a class attribute called `name`
     # set the attribute to an empty string
@@ -43,7 +44,7 @@ class QueryBase:
             GROUP BY event_date
             ORDER BY event_date
         """
-        return pd.read_sql_query(query, sqlite3.connect('employee_events.db'))
+        return self.pandas_query(query)
             
 
     # Define a `notes` method that receives an id argument
@@ -62,4 +63,4 @@ class QueryBase:
             FROM notes
             WHERE {self.name}_id = {id}
         """
-        return pd.read_sql_query(query, sqlite3.connect('employee_events.db'))
+        return self.pandas_query(query)
