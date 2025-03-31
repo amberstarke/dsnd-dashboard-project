@@ -3,7 +3,7 @@ from query_base import QueryBase
 
 # Import dependencies needed for sql execution
 # from the `sql_execution` module
-from sql_execution import execute_query
+from sql_execution import QueryMixin
 
 # Define a base class that inherits from QueryMixin
 class QueryBase(QueryMixin):
