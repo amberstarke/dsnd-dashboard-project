@@ -5,6 +5,10 @@ from query_base import QueryBase
 # from the `sql_execution` module
 from sql_execution import execute_query
 
+# Define a base class that inherits from QueryMixin
+class QueryBase(QueryMixin):
+    pass
+
 # Define a subclass of QueryBase
 # called Employee
 class Employee(QueryBase):
@@ -31,7 +35,7 @@ class Employee(QueryBase):
             SELECT first_name || ' ' || last_name AS full_name, employee_id
             FROM employee_events
         """
-        return execute_query(query)
+        return self.query(query)
     
 
     # Define a method called `username`
@@ -51,7 +55,7 @@ class Employee(QueryBase):
             FROM employee_events
             WHERE employee_id = {id}
         """
-        return execute_query(query)
+        return self.query(query)
 
 
     # Below is method with an SQL query
