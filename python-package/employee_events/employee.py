@@ -74,4 +74,4 @@ class Employee(QueryBase):
                 USING({self.name}_id)
             WHERE {self.name}.{self.name}_id = {id}
         """
-        return pd.read_sql_query(query, sqlite3.connect('employee_events.db'))
+        return self.pandas_query(query)
